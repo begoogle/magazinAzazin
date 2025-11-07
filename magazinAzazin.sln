@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35219.272
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "magazinAzazin", "magazinAzazin\magazinAzazin.vcxproj", "{08750B08-031E-458A-9673-2156D717F2CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08750B08-031E-458A-9673-2156D717F2CB}.Debug|x64.ActiveCfg = Debug|x64
+		{08750B08-031E-458A-9673-2156D717F2CB}.Debug|x64.Build.0 = Debug|x64
+		{08750B08-031E-458A-9673-2156D717F2CB}.Debug|x86.ActiveCfg = Debug|Win32
+		{08750B08-031E-458A-9673-2156D717F2CB}.Debug|x86.Build.0 = Debug|Win32
+		{08750B08-031E-458A-9673-2156D717F2CB}.Release|x64.ActiveCfg = Release|x64
+		{08750B08-031E-458A-9673-2156D717F2CB}.Release|x64.Build.0 = Release|x64
+		{08750B08-031E-458A-9673-2156D717F2CB}.Release|x86.ActiveCfg = Release|Win32
+		{08750B08-031E-458A-9673-2156D717F2CB}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44C77629-6D95-487C-B755-F119BA6466A9}
+	EndGlobalSection
+EndGlobal
