@@ -32,6 +32,7 @@ unsigned int* countArr = nullptr;
 bool isStorageCreate = false;
 
 void CreateStorage();
+void CreateNewStorage();
 void ShowStorage(int mode = 0);
 void AddStorageItem();
 void RemoveStorageItem();
@@ -255,7 +256,7 @@ void Start() {
 				{
 					if (isStorageCreate == false)
 					{
-
+						CreateNewStorage();
 					}
 					system("cls");
 					SwohSuperAgminMenu();
@@ -752,6 +753,73 @@ void CreateStorage() {
 
 }
 
+void CreateNewStorage() {
+	system("cls");
+
+	std::string choose;
+
+	while (true)
+	{
+		std::cout << "1 - Начать продажу\n";
+		std::cout << "2 - Показать склад\n";
+		std::cout << "3 - Пополнить склад\n";
+		std::cout << "4 - Списать товар\n";
+		std::cout << "5 - Измнить цену\n";
+		std::cout << "1 - Редактиривать склад\n";
+		std::cout << "2 - Редактиривать персонал\n";
+		std::cout << "8 - Отчет о прибыли\n";
+		std::cout << "0 - Закрыть смену\n";
+		std::cout << "Ввод -> ";
+		Getline(choose);
+
+		if (choose == "1")
+		{
+			
+		}
+		else if (choose == "2" && storageSize > 0)
+		{
+			
+			ShowStorage();
+		}
+		else if (choose == "3" && storageSize > 0)
+		{
+			AddStorageItem();
+		}
+		else if (choose == "4" && storageSize > 0)
+		{
+			RemoveStorageItem();
+		}
+		else if (choose == "5" && storageSize > 0)
+		{
+			ChengePrice();
+		}
+		else if (choose == "6")
+		{
+			ChangeStorage();
+		}
+		else if (choose == "7")
+		{
+			ChangeUserAccounts();
+		}
+		else if (choose == "8")
+		{
+
+		}
+		else if (choose == "0")
+		{
+
+		}
+		else
+		{
+			if (storageSize <= 0)
+			{
+				std::cout << "Отсутствуют товары для редактирования!\n";
+			}
+			Err();
+		}
+	}
+}
+
 void ShowStorage(int mode) {
 	if (mode == 0)
 	{
@@ -1078,9 +1146,9 @@ void AddNewItem() {
 		while (exit)
 		{
 			std::cout << "Введите цену нового товара -> ";
-			Getline(newCount);
+			Getline(newPrice);
 
-			if (newCount == "exit")
+			if (newPrice == "exit")
 			{
 				std::cout << "Операция добавления товара прервана!\n\n";
 				Sleep(1500);
@@ -1338,7 +1406,7 @@ void SwohSuperAgminMenu() {
 		}
 		else if (choose == "6")
 		{
-
+			ChangeStorage();
 		}
 		else if (choose == "7")
 		{
