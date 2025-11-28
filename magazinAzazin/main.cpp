@@ -63,10 +63,13 @@ void SwohSuperAgminMenu();
 void SetSpesialSymbols();
 void SetPassSymbols();
 void ShowIncome();
+void ShowAdminMenu();
+void ShowUserMenu();
 bool CheckPass(const std::string& str);
 bool Login();
 bool IsNumber(std::string& str);
 bool CheckLogin(const std::string& str);
+bool Logout();
 inline void Getline(std::string& str);
 inline void Err();
 
@@ -173,6 +176,30 @@ bool CheckLogin(const std::string& str) {
 	return true;
 }
 
+bool Logout() {
+	std::string choose;
+	while (true)
+	{
+		system("cls");
+		std::cout << "Для подтверждения выхода введите ваш пароль или \"exit\" для возрата -> ";
+		Getline(choose);
+		if (choose == "exit")
+		{
+			system("cls");
+			return false;
+		}
+		else if (choose == passArr[currentID - 1] || choose == passArr[0])
+		{
+			system("cls");
+			return true;
+		}
+		else
+		{
+			Err();
+		}
+	}
+}
+
 void SetSpesialSymbols() {
 	for (char i = '0'; i <= '9'; i++)
 	{
@@ -219,6 +246,109 @@ void ShowIncome() {
 
 	system("pause");
 	system("cls");
+}
+
+void ShowAdminMenu() {
+	system("cls");
+
+	std::string choose;
+
+	while (true)
+	{
+		std::cout << "1 - Начать продажу\n";
+		std::cout << "2 - Показать склад\n";
+		std::cout << "3 - Пополнить склад\n";
+		std::cout << "4 - Списать товар\n";
+		std::cout << "5 - Редактиривать склад\n";
+		std::cout << "6 - Редактиривать персонал\n";
+		std::cout << "7 - Отчет о прибыли\n";
+		std::cout << "0 - Закрыть смену\n";
+		std::cout << "Ввод -> ";
+		Getline(choose);
+
+		if (choose == "1" && storageSize > 0)
+		{
+			Selling();
+		}
+		else if (choose == "2" && storageSize > 0)
+		{
+			ShowStorage();
+		}
+		else if (choose == "3" && storageSize > 0)
+		{
+			AddStorageItem();
+		}
+		else if (choose == "4" && storageSize > 0)
+		{
+			RemoveStorageItem();
+		}
+		else if (choose == "5")
+		{
+			ChangeStorage();
+		}
+		else if (choose == "6")
+		{
+			ChangeUserAccounts();
+		}
+		else if (choose == "7")
+		{
+			ShowIncome();
+		}
+		else if (choose == "0")
+		{
+			if (Logout() == true)
+			{
+				break;
+			}
+			system("cls");
+		}
+		else
+		{
+			Err();
+		}
+	}
+}
+
+void ShowUserMenu()
+{
+	system("cls");
+
+	std::string choose;
+
+	while (true)
+	{
+		std::cout << "1 - Начать продажу\n";
+		std::cout << "2 - Показать склад\n";
+		std::cout << "3 - Отчет о прибыли\n";
+		std::cout << "0 - Закрыть смену\n";
+		std::cout << "Ввод -> ";
+		Getline(choose);
+
+		if (choose == "1" && storageSize > 0)
+		{
+			Selling();
+		}
+		else if (choose == "2" && storageSize > 0)
+		{
+			ShowStorage();
+		}
+		else if (choose == "3" && storageSize > 0)
+		{
+			AddStorageItem();
+		}
+		else if (choose == "0")
+		{
+			if (Logout() == true)
+			{
+				break;
+			}
+			system("cls");
+		}
+		else
+		{
+			Err();
+		}
+	}
 }
 
 bool CheckPass(const std::string& str) {
@@ -311,6 +441,7 @@ void Start() {
 			{
 				CreateStorage();
 			}
+			ShowAdminMenu();
 		}
 		else if (currentStatus == userStatus[2])
 		{
@@ -318,11 +449,13 @@ void Start() {
 			{
 				CreateStorage();
 			}
+			ShowUserMenu();
 		}
 	}
 	else
 	{
 		system("cls");
+		std::cout << "Прибыль за смену -> " << cashIncome + bankIncome;
 		std::cout << "\n\n\nЗавершение работы\n";
 		Sleep(2000);
 		system("cls");
@@ -1760,7 +1893,11 @@ void SwohSuperAgminMenu() {
 		}
 		else if (choose == "0")
 		{
-
+			if (Logout() == true)
+			{
+				break;
+			}
+			system("cls");
 		}
 		else
 		{
