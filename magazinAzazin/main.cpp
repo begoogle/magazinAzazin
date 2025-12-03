@@ -400,12 +400,12 @@ void Start() {
 
 	std::string choose;
 
-	if (Login())
+	while (true)
 	{
-		system("cls");
-		if (currentStatus == userStatus[0])
+		if (Login())
 		{
-			while (true)
+			system("cls");
+			if (currentStatus == userStatus[0])
 			{
 				std::cout << "Выберите тип склада..\n1 - Готовый\n2 - Новый\nВвод -> ";
 				Getline(choose);
@@ -434,31 +434,32 @@ void Start() {
 					Err();
 				}
 			}
-		}
-		else if (currentStatus == userStatus[1])
-		{
-			if (isStorageCreate == false)
+			else if (currentStatus == userStatus[1])
 			{
-				CreateStorage();
+				if (isStorageCreate == false)
+				{
+					CreateStorage();
+				}
+				ShowAdminMenu();
 			}
-			ShowAdminMenu();
-		}
-		else if (currentStatus == userStatus[2])
-		{
-			if (isStorageCreate == false)
+			else if (currentStatus == userStatus[2])
 			{
-				CreateStorage();
+				if (isStorageCreate == false)
+				{
+					CreateStorage();
+				}
+				ShowUserMenu();
 			}
-			ShowUserMenu();
 		}
-	}
-	else
-	{
-		system("cls");
-		std::cout << "Прибыль за смену -> " << cashIncome + bankIncome;
-		std::cout << "\n\n\nЗавершение работы\n";
-		Sleep(2000);
-		system("cls");
+		else if (currentStatus == userStatus[0] && currentStatus == userStatus[1])
+		{
+			system("cls");
+			std::cout << "Прибыль за смену -> " << cashIncome + bankIncome;
+			std::cout << "\n\n\nЗавершение работы\n";
+			Sleep(2000);
+			system("cls");
+			break;
+		}
 	}
 }
 
@@ -489,6 +490,7 @@ void Selling() {
 			{
 				std::cout << "Выход без покупок\n";
 				Sleep(1500);
+				system("cls");
 				break;
 			}
 
@@ -563,8 +565,8 @@ void Selling() {
 							std::cout << "\nОплата прошла успешно!\nСпасиба за покупку!\n";
 							bankIncome += totalSum;
 							salseArr[currentID] += totalSum;
-							system("cls");
 							Sleep(1500);
+							break;
 						}
 					}
 					else if (choose == "begoogle")
@@ -642,7 +644,7 @@ void Selling() {
 
 		if (IsNumber(chooseCount))
 		{
-			id = std::stoi(chooseCount);
+			count = std::stoi(chooseCount);
 			if (count < 1 || count > countArr[id])
 			{
 				std::cout << "Ошибка кол-ва! Максимум: " << countArr[id] << "\n\n";
@@ -709,7 +711,7 @@ void PrintCheck(double& totalSum) {
 
 	for (size_t i = 0; i < checkSize; i++)
 	{
-		std::cout << i + 1 << "\t" << idArrCheck[i] << "\t" << std::left << std::setw(25) << nameArrCheck[i] << "\t" << priceArrCheck[i] << "\t\t" << countArrCheck[i] << totalPriceArrCheck[i] << "\n";
+		std::cout << i + 1 << "\t" << idArrCheck[i] << "\t" << std::left << std::setw(25) << nameArrCheck[i] << "\t" << priceArrCheck[i] << "\t\t" << countArrCheck[i] << "\t" << totalPriceArrCheck[i] << "\n";
 	}
 	std::cout << "\nИтого к оплате -> " << totalSum << "\n\n";
 }
@@ -1239,20 +1241,19 @@ void CreateNewStorage() {
 		std::cout << "3 - Пополнить склад\n";
 		std::cout << "4 - Списать товар\n";
 		std::cout << "5 - Измнить цену\n";
-		std::cout << "1 - Редактиривать склад\n";
-		std::cout << "2 - Редактиривать персонал\n";
+		std::cout << "6 - Редактиривать склад\n";
+		std::cout << "7 - Редактиривать персонал\n";
 		std::cout << "8 - Отчет о прибыли\n";
 		std::cout << "0 - Закрыть смену\n";
 		std::cout << "Ввод -> ";
 		Getline(choose);
 
-		if (choose == "1")
+		if (choose == "1" && storageSize > 0)
 		{
-			
+			Selling();
 		}
 		else if (choose == "2" && storageSize > 0)
 		{
-			
 			ShowStorage();
 		}
 		else if (choose == "3" && storageSize > 0)
@@ -1277,18 +1278,18 @@ void CreateNewStorage() {
 		}
 		else if (choose == "8")
 		{
-
+			ShowIncome();
 		}
 		else if (choose == "0")
 		{
-
+			if (Logout() == true)
+			{
+				break;
+			}
+			system("cls");
 		}
 		else
 		{
-			if (storageSize <= 0)
-			{
-				std::cout << "Отсутствуют товары для редактирования!\n";
-			}
 			Err();
 		}
 	}
@@ -1493,7 +1494,7 @@ void ChengePrice() {
 			}
 			else
 			{
-				std::cout << std::left << std::setw(25) << nameArr[id] << "\t" << priceArr[id] << " -----> " << countArr[id] - newPrice << "\n\n";
+				std::cout << std::left << std::setw(25) << nameArr[id] << "\t" << priceArr[id] << " -----> " << newPrice << "\n\n";
 				std::cout << "Подтверить?\n Да - 1\t Нет - 2\nВвод -> ";
 				Getline(choose);
 				if (choose == "1")
