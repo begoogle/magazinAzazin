@@ -102,7 +102,11 @@ int main() {
 
 	Start();
 
-	delete[]loginArr, passArr, statusArr, salseArr, userIdArr;
+	delete[]loginArr;
+	delete[]passArr;
+	delete[]statusArr;
+	delete[]salseArr;
+	delete[]userIdArr;
 
 	if (isStorageCreate)
 	{
@@ -969,7 +973,11 @@ void AddNewUser() {
 				std::swap(salseArrTemp, salseArr);
 				std::swap(userIDTemp, userIdArr);
 
-				delete[]loginArrTemp, passArrTemp, statusArrTemp, salseArrTemp, userIDTemp;
+				delete[]loginArrTemp;
+				delete[]passArrTemp;
+				delete[]statusArrTemp;
+				delete[]salseArrTemp;
+				delete[]userIDTemp;
 				std::cout << "Идет подготовка...";
 				Sleep(1500);
 				std::cout << "Пользователь успешно добавлен!";
@@ -1164,7 +1172,11 @@ void DeleteUser() {
 						std::swap(salseArrTemp, salseArr);
 						std::swap(userIDTemp, userIdArr);
 
-						delete[]loginArrTemp, passArrTemp, statusArrTemp, salseArrTemp, userIDTemp;
+						delete[]loginArrTemp;
+						delete[]passArrTemp;
+						delete[]statusArrTemp;
+						delete[]salseArrTemp;
+						delete[]userIDTemp;
 						std::cout << "Идет подготовка...";
 						Sleep(1500);
 						std::cout << "Пользователь успешно удален!";
@@ -1679,7 +1691,10 @@ void AddNewItem() {
 				std::swap(countArr, countArrTemp);
 				std::swap(priceArr, priceArrTemp);
 
-				delete[]idArrTemp, nameArrTemp, priceArrTemp, countArrTemp;
+				delete[]idArrTemp;
+				delete[]nameArrTemp;
+				delete[]priceArrTemp;
+				delete[]countArrTemp;
 				std::cout << "Идет подготовка...";
 				Sleep(2000);
 				std::cout << "Товар успешно добавлен!\n\n";
@@ -1820,7 +1835,10 @@ void DeleteItem() {
 					std::swap(countArr, countArrTemp);
 					std::swap(priceArr, priceArrTemp);
 
-					delete[]idArrTemp, nameArrTemp, priceArrTemp, countArrTemp;
+					delete[]idArrTemp;
+					delete[]nameArrTemp;
+					delete[]priceArrTemp;
+					delete[]countArrTemp;
 					std::cout << "Идет подготовка...";
 					Sleep(2000);
 					std::cout << "Товар успешно удален!\n\n";
