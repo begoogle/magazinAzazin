@@ -81,8 +81,11 @@ size_t checkSize = 0;
 int* idArrCheck;
 std::string* nameArrCheck;
 unsigned int* countArrCheck;
+unsigned int vinPhoneNum;
 double* priceArrCheck;
 double* totalPriceArrCheck;
+bool discountPhone = false;
+bool vinPhone = false;
 
 double cashIncome = 0;
 double bankIncome = 0.0;
@@ -92,6 +95,9 @@ void Selling();
 void CheckArrPushback();
 void PrintCheck(double& totalSum);
 void StorageReturner();
+void DiscountCheckSum(double &sum);
+void DiscountPhonePlus();
+void Ticket(double& sum);
 
 //======================================================
 
@@ -478,6 +484,7 @@ void Selling() {
 	unsigned int id = 0, count = 0, index = -1;
 	double money = 0.0, totalSum = 0.0;
 	bool isFirst = false;
+	
 	checkSize = 0;
 
 	while (true)
@@ -496,6 +503,31 @@ void Selling() {
 				Sleep(1500);
 				system("cls");
 				break;
+			}
+
+			if (totalSum >= 50000)
+			{
+				DiscountCheckSum(totalSum);
+			}
+
+			if (discountPhone)
+			{
+				DiscountPhonePlus();
+				Ticket(totalSum);
+			}
+
+			if (vinPhone)
+			{
+				CheckArrPushback();
+
+				index++;
+				idArrCheck[index] = idArr[vinPhoneNum];
+				nameArrCheck[index] = nameArr[vinPhoneNum];
+				priceArrCheck[index] = 0;
+				countArrCheck[index] = 1;
+				totalPriceArrCheck[index] = priceArr[vinPhoneNum];
+				countArr[vinPhoneNum] -= 1;
+				totalSum += 0;
 			}
 
 			PrintCheck(totalSum);
@@ -677,6 +709,11 @@ void Selling() {
 		countArr[id] -= count;
 		totalSum += totalPriceArrCheck[index];
 
+		if (countArrCheck[index] >= 2)
+		{
+			discountPhone = true;
+		}
+
 		std::cout << "\nТовар успешно добавлен в чек!\n\n";
 
 		Sleep(1500);
@@ -715,9 +752,9 @@ void PrintCheck(double& totalSum) {
 
 	for (size_t i = 0; i < checkSize; i++)
 	{
-		std::cout << i + 1 << "\t" << idArrCheck[i] << "\t" << std::left << std::setw(25) << nameArrCheck[i] << "\t" << priceArrCheck[i] << "\t\t" << countArrCheck[i] << "\t" << totalPriceArrCheck[i] << "\n";
+		std::cout << i + 1 << "\t" << idArrCheck[i] << "\t" << std::left << std::setw(25) << nameArrCheck[i] << "\t" << priceArrCheck[i] << "\t\t" << countArrCheck[i] << "\t\t" << totalPriceArrCheck[i] << "\n";
 	}
-	std::cout << "\nИтого к оплате -> " << totalSum << "\n\n";
+	std::cout << "\nИтого к оплате -> " << totalSum << "\n";
 }
 
 void StorageReturner() {
@@ -739,6 +776,118 @@ void StorageReturner() {
 	totalPriceArrCheck = nullptr;
 
 	checkSize = 0;
+}
+
+void DiscountCheckSum(double& sum) {
+	std::cout << "Активирована скидка!\n\n";
+	std::cout << "-20% при 50000 или более суммы чека\n\n";
+
+	std::cout << sum << " ------> " << sum - (sum * 20 / 100) << "\n";
+
+	sum = sum - (sum * 20 / 100);
+
+	system("pause");
+	system("cls");
+}
+
+void DiscountPhonePlus() {
+	std::cout << "Активирована скидка!\n\n";
+	std::cout << "Лотерейный билет в подарок при покупки от 2 телефонов!\n\n";
+
+	system("pause");
+	system("cls");
+}
+
+void Ticket(double& sum) {
+	char arr[9];
+	int ticket[9];
+	int sumPlus = 0;
+	std::string choose;
+
+	for (size_t i = 0; i < 9; i++)
+	{
+		arr[i] = '#';
+		ticket[i] = rand() % 2;
+	}
+	
+	std::cout << "Что можно выиграть:\n1) Скидку (в зависимости от плюсов, каждый плюс дает 5% скидки)\n2) Телефон (нужно выбить 3 плюса)";
+
+	system("pause");
+	system("cls");
+
+	for (size_t i = 0; i < 3; i++)
+	{
+		int cell = 0;
+		for (size_t i = 0, j = 1; i < 9; i++, j++)
+		{
+			std::cout << i + 1 << " " << arr[i] << " "; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ДЛЯ ПРОВЕРКИ РАБОТЫ ВЫИГРАША ТЕЛЕФОНА ПОМЕНЯТЬ "i + 1" НА "ticket[i]" !!!!!!!!!!!!!!!!!!!!!!
+			if (j == 3)
+			{
+				std::cout << "\n";
+				j = 0;
+			}
+		}
+
+		std::cout << "Введите номер ячейки " << "попытка (" << i + 1 << ")" << " -> ";
+		Getline(choose);
+
+		if (IsNumber(choose))
+		{
+			cell = std::stoi(choose);
+
+			if (cell < 1 || cell > 9)
+			{
+				Err();
+				continue;
+			}
+		}
+		else
+		{
+			continue;
+		}
+
+		if (ticket[cell - 1] == 0)
+		{
+			arr[cell - 1] = '-';
+		}
+		else
+		{
+			arr[cell - 1] = '+';
+			sumPlus++;
+		}
+
+		system("cls");
+	}
+
+	std::cout << "Итог:\n";
+
+	for (size_t i = 0, j = 1; i < 9; i++, j++)
+	{
+		std::cout << i + 1 << " " << arr[i] << " ";
+		if (j == 3)
+		{
+			std::cout << "\n";
+			j = 0;
+		}
+	}
+
+	std::cout << "Собрано плюсов -> " << sumPlus << "\n";
+	std::cout << "Выиграна скидка:\n";
+
+	std::cout << sum << " ------> " << sum - (sum * (sumPlus * 5) / 100) << "\n\n";
+
+	sum = sum - (sum * (sumPlus * 5) / 100);
+
+	if (sumPlus > 2)
+	{
+		vinPhoneNum = rand() % 10;
+		std::cout << "Вы выиграли телефон " << nameArr[vinPhoneNum] << " !\n";
+
+		vinPhone = true;
+	}
+
+	system("pause");
+	system("cls");
 }
 
 bool Login() {
