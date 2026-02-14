@@ -102,6 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,7 +124,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="accounts.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="official.cpp" />
+    <ClCompile Include="global.cpp" />
+    <ClCompile Include="sale.cpp" />
+    <ClCompile Include="warehouse.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="accounts.hpp" />
+    <ClInclude Include="fill_arr.hpp" />
+    <ClInclude Include="include.hpp" />
+    <ClInclude Include="include_all_hpp.hpp" />
+    <ClInclude Include="official.hpp" />
+    <ClInclude Include="global.hpp" />
+    <ClInclude Include="sale.hpp" />
+    <ClInclude Include="warehouse.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
